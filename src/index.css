@@ -1,0 +1,26 @@
+:root {
+  --dark-bg: #151515;
+  --dark-text: #fff;
+  --light-bg: #eee;
+  --light-text: #000;
+  font-family: system-ui, sans-serif;
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: var(--light-text);
+    background-color: var(--light-bg);
+  }
+}

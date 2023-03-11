@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --dark-bg: #151515;
   --dark-text: #fff;
@@ -16,6 +20,23 @@ body {
   max-width: 1000px;
   margin: 0 auto;
   padding: 1rem;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  height: 2.5rem;
+  font-size: 2rem;
+  text-align: center;
+  border: none;
+  border-radius: 1rem;
+}
+
+.retry {
+  height: 2.5rem;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  border: none;
 }
 
 @media (prefers-color-scheme: light) {

@@ -16,10 +16,25 @@ body {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
+button {
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
 #root {
   max-width: 1000px;
   margin: 0 auto;
   padding: 1rem;
+}
+
+.app {
+  display: grid;
+  gap: 1rem;
 }
 
 .input {
@@ -29,14 +44,66 @@ body {
   font-size: 2rem;
   text-align: center;
   border: none;
-  border-radius: 1rem;
+  border-radius: 0.25rem;
 }
 
 .retry {
   height: 2.5rem;
   font-size: 1.5rem;
-  border-radius: 1rem;
-  border: none;
+  border-radius: 0.25rem;
+}
+
+.data {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.item {
+  color: var(--light-text);
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  padding: 0.2rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color ease-out 0.3s;
+}
+
+.item__url {
+  flex-grow: 1;
+  word-break: break-all;
+}
+
+.item__button {
+  min-width: 1.25rem;
+  min-height: 1.25rem;
+  background-color: var(--dark-bg);
+  display: grid;
+  place-items: center;
+}
+
+.item__button:hover > .button__first {
+  transform: rotate(45deg);
+}
+
+.item__button:focus > .button__first {
+  transform: rotate(45deg) scale(0.65);
+}
+
+.item__button:hover > .button__second {
+  transform: rotate(-45deg);
+}
+
+.item__button:focus > .button__second {
+  transform: rotate(-45deg) scale(0.65);
+}
+
+.button__both {
+  width: 1rem;
+  height: 0.125rem;
+  border-radius: 4rem;
+  background-color: var(--dark-text);
+  grid-area: 1 / 1;
+  transition: transform ease-out 0.1s;
 }
 
 @media (prefers-color-scheme: light) {

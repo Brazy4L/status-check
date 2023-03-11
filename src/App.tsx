@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { data as initialData } from "./data";
 
 interface DataItem {
@@ -36,7 +36,7 @@ export default function App() {
   async function checkConnection(url: string) {
     try {
       await fetchWithTimeout(url, {
-        timeout: 1000,
+        timeout: 2000,
         mode: "no-cors",
       });
       return true;
@@ -59,11 +59,16 @@ export default function App() {
     setData(addStatus);
   }
 
+  function removeProtocol(url: string) {
+    return url.replace(/^https?:\/\//, "");
+  }
+
   return (
     <div className="app">
       <input
         className="input"
         value={input}
+        placeholder="example.com"
         onChange={(e) => setInput(e.target.value)}
       />
       <button
@@ -76,10 +81,31 @@ export default function App() {
       </button>
       <div className="data">
         {data.map((item) => (
-          <div className="item" key={item.id}>
-            <div>{item.url}</div>
-            <div>{item.status}</div>
-          </div>
+          <a
+            href={item.url}
+            className="item"
+            key={item.id}
+            style={{
+              backgroundColor:
+                item.status === "true"
+                  ? "#5fff89"
+                  : item.status === "false"
+                  ? "#ff5f60"
+                  : "#fdff5f",
+            }}
+          >
+            <div className="item__url">{removeProtocol(item.url)}</div>
+            <button
+              className="item__button"
+              onClick={(e) => {
+                e.preventDefault();
+                setData(data.filter((i) => i.id !== item.id));
+              }}
+            >
+              <div className="button__both button__first"></div>
+              <div className="button__both button__second"></div>
+            </button>
+          </a>
         ))}
       </div>
     </div>

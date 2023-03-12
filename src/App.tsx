@@ -72,6 +72,13 @@ export default function App() {
     setData(addStatus);
   }
 
+  function addProtocol(url: string) {
+    if (!/^https?:\/\//i.test(url)) {
+      return `https://${url}`
+    }
+    return url
+  }
+
   function removeProtocol(url: string) {
     return url.replace(/^https?:\/\//, "");
   }
@@ -85,7 +92,7 @@ export default function App() {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter" && data[0].status !== "pending") {
-            addItem(input);
+            addItem(addProtocol(input));
           }
         }}
       />

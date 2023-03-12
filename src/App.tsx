@@ -1,4 +1,4 @@
-import { useEffect, useState, Fragment } from "react";
+import { useEffect, useState } from "react";
 import { data as initialData } from "./data";
 
 interface DataItem {
@@ -12,6 +12,8 @@ interface Options {
   mode: string | any;
 }
 
+let nextId = 3;
+
 export default function App() {
   const [data, setData] = useState(initialData);
   const [input, setInput] = useState("");
@@ -19,6 +21,17 @@ export default function App() {
   useEffect(() => {
     checkAll(data);
   }, []);
+
+  function addItem(url: string) {
+    setData([
+      ...data,
+      {
+        id: nextId++,
+        url,
+        status: "brazy",
+      },
+    ]);
+  }
 
   async function fetchWithTimeout(url: string, options: Options) {
     const { timeout } = options;
@@ -39,9 +52,9 @@ export default function App() {
         timeout: 2000,
         mode: "no-cors",
       });
-      return true;
+      return "true";
     } catch (error) {
-      return false;
+      return "false";
     }
   }
 
@@ -54,7 +67,7 @@ export default function App() {
       data.map((item) => checkConnection(item.url))
     );
     const addStatus = data.map((item, index) => {
-      return { ...item, status: results[index].toString() };
+      return { ...item, status: results[index] };
     });
     setData(addStatus);
   }
@@ -68,8 +81,13 @@ export default function App() {
       <input
         className="input"
         value={input}
-        placeholder="example.com"
+        placeholder="brazy.one"
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && data[0].status !== "pending") {
+            addItem(input);
+          }
+        }}
       />
       <button
         className="retry"
@@ -77,7 +95,7 @@ export default function App() {
           checkAll(data);
         }}
       >
-        Retry All
+        CHECK
       </button>
       <div className="data">
         {data.map((item) => (
@@ -91,7 +109,9 @@ export default function App() {
                   ? "#5fff89"
                   : item.status === "false"
                   ? "#ff5f60"
-                  : "#fdff5f",
+                  : item.status === "pending"
+                  ? "#fdff5f"
+                  : "#c86bff",
             }}
           >
             <div className="item__url">{removeProtocol(item.url)}</div>
@@ -99,8 +119,11 @@ export default function App() {
               className="item__button"
               onClick={(e) => {
                 e.preventDefault();
-                setData(data.filter((i) => i.id !== item.id));
+                if (item.status !== "pending") {
+                  setData(data.filter((i) => i.id !== item.id));
+                }
               }}
+              style={{ cursor: item.status === "pending" ? "wait" : "" }}
             >
               <div className="button__both button__first"></div>
               <div className="button__both button__second"></div>

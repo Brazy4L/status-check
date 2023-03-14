@@ -28,7 +28,7 @@ export default function App() {
       {
         id: nextId++,
         url,
-        status: "brazy",
+        status: "q",
       },
     ]);
   }
@@ -59,6 +59,8 @@ export default function App() {
   }
 
   async function checkAll(data: DataItem[]) {
+    const check = document.getElementById("check");
+    check?.classList.toggle("rainbow");
     const removeStatus = data.map((item) => {
       return { ...item, status: "pending" };
     });
@@ -70,17 +72,18 @@ export default function App() {
       return { ...item, status: results[index] };
     });
     setData(addStatus);
+    check?.classList.toggle("rainbow");
   }
 
   function addProtocol(url: string) {
     if (!/^https?:\/\//i.test(url)) {
-      return `https://${url}`
+      return `https://${url}`;
     }
-    return url
+    return url;
   }
 
   function removeProtocol(url: string) {
-    return url.replace(/^https?:\/\//, "");
+    return url.replace(/^https?:\/\//i, "");
   }
 
   return (
@@ -88,16 +91,17 @@ export default function App() {
       <input
         className="input"
         value={input}
-        placeholder="brazy.one"
+        placeholder="example.com"
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Enter" && data[0].status !== "pending") {
+          if (e.key === "Enter" && (!data[0] || data[0].status !== "pending")) {
             addItem(addProtocol(input));
           }
         }}
       />
       <button
-        className="retry"
+        id="check"
+        className="check"
         onClick={() => {
           checkAll(data);
         }}

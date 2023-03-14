@@ -1,15 +1,21 @@
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 :root {
+  --angle: 0deg;
   --dark-bg: #151515;
-  --dark-text: #fff;
-  --light-bg: #eee;
-  --light-text: #000;
+  --dark-text: #000;
+  --light-text: #fff;
+  --success: #5fff89;
+  --fail: #ff5f60;
+  --pending: #fdff5f;
+  --queued: #c86bff;
   font-family: system-ui, sans-serif;
   background-color: var(--dark-bg);
-  color: var(--dark-text);
+  color: var(--light-text);
 }
 
 body {
@@ -47,10 +53,42 @@ button {
   border-radius: 0.25rem;
 }
 
-.retry {
+.check {
   height: 2.5rem;
   font-size: 1.5rem;
   border-radius: 0.25rem;
+  background-color: #353535;
+  color: var(--light-text);
+}
+
+.rainbow {
+  border: 0.25rem solid transparent;
+  border-image: conic-gradient(
+      from var(--angle),
+      var(--success) 0deg 90deg,
+      var(--fail) 90deg 180deg,
+      var(--pending) 180deg 270deg,
+      var(--queued) 270deg 360deg
+    )
+    1 stretch;
+}
+
+@supports (background: paint(houdini)) {
+  @property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @keyframes rotate {
+    to {
+      --angle: 360deg;
+    }
+  }
+
+  .rainbow {
+    animation: rotate 4s linear infinite;
+  }
 }
 
 .data {
@@ -59,7 +97,7 @@ button {
 }
 
 .item {
-  color: var(--light-text);
+  color: var(--dark-text);
   display: flex;
   align-items: center;
   column-gap: 1rem;
@@ -79,6 +117,7 @@ button {
   background-color: var(--dark-bg);
   display: grid;
   place-items: center;
+  border-radius: 0.25rem;
 }
 
 .item__button:hover > .button__first {
@@ -101,14 +140,7 @@ button {
   width: 1rem;
   height: 0.125rem;
   border-radius: 4rem;
-  background-color: var(--dark-text);
+  background-color: var(--light-text);
   grid-area: 1 / 1;
   transition: transform ease-out 0.1s;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: var(--light-text);
-    background-color: var(--light-bg);
-  }
 }

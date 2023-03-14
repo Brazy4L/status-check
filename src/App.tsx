@@ -88,17 +88,23 @@ export default function App() {
 
   return (
     <div className="app">
-      <input
-        className="input"
-        value={input}
-        placeholder="example.com"
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && (!data[0] || data[0].status !== "pending")) {
-            addItem(addProtocol(input));
-          }
-        }}
-      />
+      <div className="add">
+        <input
+          className="input"
+          value={input}
+          placeholder="example.com"
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (
+              e.key === "Enter" &&
+              (!data[0] || data[0].status !== "pending")
+            ) {
+              addItem(addProtocol(input));
+            }
+          }}
+        />
+        <div className="line"></div>
+      </div>
       <button
         id="check"
         className="check"

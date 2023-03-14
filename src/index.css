@@ -43,6 +43,42 @@ button {
   gap: 1rem;
 }
 
+.legend {
+  display: grid;
+  justify-items: start;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 2rem;
+}
+
+.legend > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend > div::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  border-radius: 69rem;
+}
+
+.legend > div:nth-child(1)::before {
+  background-color: var(--success);
+}
+
+.legend > div:nth-child(2)::before {
+  background-color: var(--fail);
+}
+
+.legend > div:nth-child(3)::before {
+  background-color: var(--pending);
+}
+
+.legend > div:nth-child(4)::before {
+  background-color: var(--queued);
+}
+
 .add {
   display: grid;
 }
@@ -187,4 +223,11 @@ button {
   background-color: var(--light-text);
   grid-area: 1 / 1;
   transition: transform ease-out 0.1s;
+}
+
+@media (min-width: 415px) {
+  .legend {
+    justify-items: center;
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

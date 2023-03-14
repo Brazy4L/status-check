@@ -60,7 +60,7 @@ export default function App() {
 
   async function checkAll(data: DataItem[]) {
     const check = document.getElementById("check");
-    check?.classList.toggle("rainbow");
+    check?.classList.add("rainbow");
     const removeStatus = data.map((item) => {
       return { ...item, status: "pending" };
     });
@@ -72,7 +72,7 @@ export default function App() {
       return { ...item, status: results[index] };
     });
     setData(addStatus);
-    check?.classList.toggle("rainbow");
+    check?.classList.remove("rainbow");
   }
 
   function addProtocol(url: string) {
@@ -88,6 +88,20 @@ export default function App() {
 
   return (
     <div className="app">
+      <div className="legend">
+        <div>
+          <div>Success</div>
+        </div>
+        <div>
+          <div>Fail</div>
+        </div>
+        <div>
+          <div>Pending</div>
+        </div>
+        <div>
+          <div>Queued</div>
+        </div>
+      </div>
       <div className="add">
         <input
           className="input"

@@ -13,6 +13,9 @@
   --fail: #ff5f60;
   --pending: #fdff5f;
   --queued: #c86bff;
+  --element-primary: #353535;
+  --element-mid: #434343;
+  --element-alt: #505050;
   font-family: system-ui, sans-serif;
   background-color: var(--dark-bg);
   color: var(--light-text);
@@ -93,21 +96,67 @@ button {
   text-align: center;
   border: none;
   border-radius: 0.25rem;
-  background-color: #505050;
+  background-color: var(--element-alt);
   color: var(--light-text);
-  border-bottom: 0.25rem solid #353535;
+  border-bottom: 0.25rem solid var(--element-primary);
   transition: background-color ease-out 0.3s;
   transform: translateZ(0);
+  padding-right: 5rem;
 }
 
 .input:focus {
   outline: none;
-  background-color: #353535;
+  background-color: var(--element-primary);
 }
 
 .input:focus + .line {
   opacity: 1;
   transform: scaleX(1);
+}
+
+.add__button {
+  grid-area: 1 / 1;
+  justify-self: end;
+  z-index: 10;
+  width: 5rem;
+  height: 2.75rem;
+  border-top-right-radius: 0.25rem;
+  background-color: var(--element-mid);
+}
+
+.add__button:active {
+  box-shadow: inset 0px 0px 6px 0px var(--dark-bg);
+}
+
+.add__button > svg {
+  stroke: var(--light-text);
+  transition: stroke ease-out 0.3s, transform ease-out 0.1s;
+}
+
+.add__button > svg:nth-child(1) {
+  transform: translateX(0.875rem);
+}
+
+.add__button > svg:nth-child(4) {
+  transform: translateX(-0.875rem);
+}
+
+.add__button:hover > svg:nth-child(1) {
+  stroke: var(--success);
+  transform: translateX(0);
+}
+
+.add__button:hover > svg:nth-child(2) {
+  stroke: var(--fail);
+}
+
+.add__button:hover > svg:nth-child(3) {
+  stroke: var(--pending);
+}
+
+.add__button:hover > svg:nth-child(4) {
+  stroke: var(--queued);
+  transform: translateX(0);
 }
 
 .line {
@@ -137,7 +186,7 @@ button {
   height: 2.5rem;
   font-size: 1.5rem;
   border-radius: 0.25rem;
-  background-color: #353535;
+  background-color: var(--element-primary);
   color: var(--light-text);
 }
 

@@ -126,6 +126,63 @@ export default function App() {
           }}
         />
         <div className="line"></div>
+        <button
+          className="add__button"
+          onClick={() => {
+            if (!data[0] || data[0].status !== "pending") {
+              addItem(addProtocol(input));
+            }
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="44"
+            fill="none"
+          >
+            <path
+              strokeLinecap="round"
+              strokeWidth="3"
+              d="m2 11 9.389 10.327a1 1 0 0 1 0 1.346L2 33"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="44"
+            fill="none"
+          >
+            <path
+              strokeLinecap="round"
+              strokeWidth="3"
+              d="m2 11 9.389 10.327a1 1 0 0 1 0 1.346L2 33"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="44"
+            fill="none"
+          >
+            <path
+              strokeLinecap="round"
+              strokeWidth="3"
+              d="m2 11 9.389 10.327a1 1 0 0 1 0 1.346L2 33"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="44"
+            fill="none"
+          >
+            <path
+              strokeLinecap="round"
+              strokeWidth="3"
+              d="m2 11 9.389 10.327a1 1 0 0 1 0 1.346L2 33"
+            />
+          </svg>
+        </button>
       </div>
       <button
         id="check"

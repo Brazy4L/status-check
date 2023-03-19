@@ -12,25 +12,32 @@ interface Options {
   mode: string | any;
 }
 
-let nextId = 3;
+let nextId: number;
 
 export default function App() {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(
+    JSON.parse(localStorage.getItem("data") || "null") || initialData
+  );
   const [input, setInput] = useState("");
 
   useEffect(() => {
+    let newNextId = JSON.parse(localStorage.getItem("next") || "null");
+    nextId = newNextId || 3;
     checkAll(data);
   }, []);
 
   function addItem(url: string) {
-    setData([
+    let newData = [
       ...data,
       {
         id: nextId++,
         url,
         status: "q",
       },
-    ]);
+    ];
+    setData(newData);
+    localStorage.setItem("data", JSON.stringify(newData));
+    localStorage.setItem("next", JSON.stringify(nextId));
   }
 
   async function fetchWithTimeout(url: string, options: Options) {
@@ -65,6 +72,7 @@ export default function App() {
       return { ...item, status: "pending" };
     });
     setData(removeStatus);
+    localStorage.setItem("data", JSON.stringify(removeStatus));
     const results = await Promise.all(
       data.map((item) => checkConnection(item.url))
     );
@@ -129,7 +137,7 @@ export default function App() {
         CHECK
       </button>
       <div className="data">
-        {data.map((item) => (
+        {data.map((item: DataItem) => (
           <a
             href={item.url}
             className="item"
@@ -151,7 +159,9 @@ export default function App() {
               onClick={(e) => {
                 e.preventDefault();
                 if (item.status !== "pending") {
-                  setData(data.filter((i) => i.id !== item.id));
+                  let newData = data.filter((i: DataItem) => i.id !== item.id);
+                  setData(newData);
+                  localStorage.setItem("data", JSON.stringify(newData));
                 }
               }}
               style={{ cursor: item.status === "pending" ? "wait" : "" }}
